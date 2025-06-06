@@ -62,7 +62,7 @@ button:hover {
 
 #weather-info {
   margin-top: 20px;
-  background-color: #232222;
+  background-color: #383838;
   padding: 20px;
   border-radius: 10px;
 }
@@ -78,4 +78,29 @@ button:hover {
 #error-message {
   color: #ff5722;
   margin-top: 20px;
+}
+
+.description-tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-tag,
+p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.weather-icon {
+  width: 40px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
