@@ -12,7 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 3, name: "product 3", price: 30.99 },
   ];
 
-  const cart = [];
+  const cart = JSON.parse(localStorage.getItem("task")) || [];
+
+  cart.forEach(() => {
+    renderCart();
+  });
+
+  function saveTask() {
+    localStorage.setItem("task", JSON.stringify(cart));
+  }
+
+  // const cart = [];
 
   products.forEach((e) => {
     const productDiv = document.createElement("div");
@@ -28,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const product = products.find((p) => p.id === productId);
       addToCart(product);
       // console.log(cart);
+      saveTask();
     }
   });
 
@@ -37,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const product = products.find((p) => p.id === productId);
       deleteItem(product);
       // console.log(cart);
+      saveTask();
     }
   });
 
