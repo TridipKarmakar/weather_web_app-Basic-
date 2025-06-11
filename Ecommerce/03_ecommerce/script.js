@@ -23,46 +23,44 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   productList.addEventListener("click", (e) => {
-    e.stopPropagation();
     if (e.target.tagName == "BUTTON") {
       const productId = parseInt(e.target.getAttribute("data-id"));
       const product = products.find((p) => p.id === productId);
       addToCart(product);
       // console.log(cart);
     }
+  });
+  function addToCart(product) {
+    cart.push(product);
+    renderCart();
+  }
 
-    function addToCart(product) {
-      cart.push(product);
-      renderCart();
+  function renderCart() {
+    cartItems.innerText = "";
+    let totalPrice = 0;
+    if (cart.length > 0) {
+      emptyCart.classList.add("hidden");
+      cartTotal.classList.remove("hidden");
+      cart.forEach((element) => {
+        totalPrice += element.price;
+        // console.log(element.name);
+        const chartItem = document.createElement("div");
+        chartItem.innerHTML = `${element.name} - $${element.price.toFixed(2)}`;
+
+        cartItems.appendChild(chartItem);
+        totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;
+      });
+    } else {
+      emptyCart.classList.remove("hidden");
+      totalPriceDisplay.textContent = `$0.00`;
     }
+  }
 
-    function renderCart() {
-      cartItems.innerText = "";
-      let totalPrice = 0;
-      if (cart.length > 0) {
-        emptyCart.classList.add("hidden");
-        cartTotal.classList.remove("hidden");
-        cart.forEach((element) => {
-          totalPrice += element.price;
-          // console.log(element.name);
-          const chartItem = document.createElement("div");
-          chartItem.innerHTML = `${element.name} - $${element.price.toFixed(
-            2
-          )}`;
-
-          totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;
-          cartItems.appendChild(chartItem);
-        });
-      } else {
-        emptyCart.classList.add("hidden");
-        totalPriceDisplay.textContent = `$0.00`;
-      }
-    }
-
-    checkoutBtn.addEventListener("click", () => {
-      cart.length = 0;
-      alert("checkout successfully");
-      renderCart();
-    });
+  checkoutBtn.addEventListener("click", () => {
+    console.log(cart);
+    cart.length = 0;
+    console.log(cart);
+    alert("checkout successfully");
+    renderCart();
   });
 });
