@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <button data-id=${element.id}>Delete</button>`;
 
         cartItems.appendChild(chartItem);
-        totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;
+        totalPriceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
       });
     } else {
       emptyCart.classList.remove("hidden");
@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   checkoutBtn.addEventListener("click", () => {
     console.log(cart);
     cart.length = 0;
+    saveTask();
     console.log(cart);
     alert("checkout successfully");
     renderCart();
