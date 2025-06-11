@@ -30,6 +30,21 @@ document.addEventListener("DOMContentLoaded", () => {
       // console.log(cart);
     }
   });
+
+  cartItems.addEventListener("click", (e) => {
+    if (e.target.tagName == "BUTTON") {
+      const productId = parseInt(e.target.getAttribute("data-id"));
+      const product = products.find((p) => p.id === productId);
+      deleteItem(product);
+      // console.log(cart);
+    }
+  });
+
+  function deleteItem(product) {
+    cart.pop(product);
+    renderCart();
+  }
+
   function addToCart(product) {
     cart.push(product);
     renderCart();
@@ -45,7 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
         totalPrice += element.price;
         // console.log(element.name);
         const chartItem = document.createElement("div");
-        chartItem.innerHTML = `${element.name} - $${element.price.toFixed(2)}`;
+        chartItem.classList.add("checkOutProduct");
+        chartItem.innerHTML = `<span> ${
+          element.name
+        } - $${element.price.toFixed(2)} </span>
+          <button data-id=${element.id}>Delete</button>`;
 
         cartItems.appendChild(chartItem);
         totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;

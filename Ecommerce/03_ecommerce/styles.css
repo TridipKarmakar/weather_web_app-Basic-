@@ -56,6 +56,45 @@ h2 {
   background-color: #3700b3;
 }
 
+.product button:active {
+  background-color: #2e0468;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+.checkOutProduct {
+  background-color: #252525;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.checkOutProduct button {
+  justify-content: right;
+  align-items: right;
+  margin-left: auto;
+  background-color: #ff0458;
+  border: none;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkOutProduct button:hover {
+  background-color: #91033e;
+}
+
+.checkOutProduct button:active {
+  background-color: #3b0119;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
 #cart-items {
   margin-bottom: 20px;
 }
