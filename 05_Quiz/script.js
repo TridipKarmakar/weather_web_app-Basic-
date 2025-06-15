@@ -31,39 +31,57 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  trueAnswer = [];
-  let currentIndex = 1;
+  let currentQuestionIndex = 0;
+  let score = 0;
 
-  startBtn.addEventListener("click", () => {
-    startBtn.classList = "hidden";
-    questionContainer.classList.remove("hidden");
-    nextBtn.classList.remove("hidden");
+  startBtn.addEventListener("click", () => startQuiz);
 
-    questionText.textContent = questions[0].question;
-    choicesList.innerHTML = `<li>${questions[0].choices[0]}</li><li>${questions[0].choices[1]}</li><li>${questions[0].choices[2]}</li>`;
-    choicesList.addEventListener("click", (e) => {
-      if (e.target.textContent == questions[0].answer) {
-      } else {
-        trueAnswer.push(false);
-      }
-      console.log(trueAnswer);
-      nextBtn.addEventListener("click", () => {
-        nextQuestion();
-      });
-    });
+  nextBtn.addEventListener("click", () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      showQuestions();
+    } else {
+      showResult();
+    }
   });
 
-  function nextQuestion() {
-    if (currentIndex < questions.length) {
-      questionText.textContent = questions[currentIndex].question;
-      choicesList.innerHTML = `<li>${questions[currentIndex].choices[0]}</li><li>${questions[currentIndex].choices[1]}</li><li>${questions[currentIndex].choices[2]}</li>`;
-      choicesList.addEventListener("click", (e) => {
-        if (e.target.textContent == questions[currentIndex].answer) {
-        } else {
-          trueAnswer.push(false);
-        }
-      });
-      currentIndex++;
+  restartBtn.addEventListener("click", () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    resultContainer.classList.add("hidden");
+    startQuiz();
+  });
+
+  function startQuiz() {
+    startBtn.classList.add("hidden");
+    resultContainer.classList.add("hidden");
+    questionContainer.classList.remove("hidden");
+    showQuestions();
+  }
+
+  function showQuestions() {
+    nextBtn.classList.add("hidden");
+    questionText.textContent = questions[currentQuestionIndex].question;
+    choicesList.innerHTML = "";
+    questions[currentQuestionIndex].choices.forEach((choice) => {
+      const li = document.createElement("li");
+      li.textContent = choice;
+      li.addEventListener("click", () => selectAnswer(choice));
+      choicesList.appendChild(li);
+    });
+  }
+
+  function selectAnswer(choice) {
+    const correctAnswer = questions[currentQuestionIndex].answer;
+    if (choice === correctAnswer) {
+      score++;
     }
+    nextBtn.classList.remove("hidden");
+  }
+
+  function showResult() {
+    questionContainer.classList.add("hidden");
+    resultContainer.classList.remove("hidden");
+    scoreDisplay.textContent = `${score} our of ${questions.length}`;
   }
 });
